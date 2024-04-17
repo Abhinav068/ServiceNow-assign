@@ -15,8 +15,8 @@ app.get('/', async (req, res) => {
 
 app.post('/user', async (req, res) => {
     try {
-        const { ID, FirstName, LastName, Department } = req.body;
-        const user = await UserModel({ FirstName, LastName, Department });
+        const { firstName, lastName, department } = req.body;
+        const user = await UserModel({ firstName, lastName, department });
         await user.save();
         res.status(200).send({ msg: 'User Successfully registered.' });
 

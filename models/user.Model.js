@@ -9,11 +9,11 @@ const UserModel = model('user', Schema({
         default: () => nanoid(),
         required: true,
     },
-    "FirstName": {
+    "firstName": {
         type: String,
         required: true
     },
-    "LastName": {
+    "lastName": {
         type: String,
         required: true
     },
@@ -21,7 +21,7 @@ const UserModel = model('user', Schema({
         type: String,
         required: true
     },
-    "Department": {
+    "department": {
         type: String,
         required: true
     }

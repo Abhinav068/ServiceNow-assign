@@ -6,19 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ServiceNow</title>
     <style>
-        
-        .popup{
+        .popup {
             position: fixed;
             top: 0;
             bottom: 0;
             left: 0;
             right: 0;
             background-color: aquamarine;
+            background-color: rgba(0, 0, 0, 0.8);
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        .add-user{
+
+        .add-user {
             background-color: blueviolet;
         }
     </style>
@@ -32,58 +33,63 @@
     <hr>
     <section>
         <h2>All Users</h2>
-        <div>
-            <p><b> ID:</b> 1</p>
-            <p><b>First Name:</b> John</p>
-            <p><b>Last Name:</b> Doe</p>
-            <p><b>Email:</b> abc@gmail.com</p>
-            <p><b>Department:</b> Sales</p>
+        <div class="wrapper">
             <div>
-                <button>Update</button>
-                <button>Delete</button>
-            </div>
-        </div>
-        <div>
-            <p><b> ID:</b> 1</p>
-            <p><b>First Name:</b> John</p>
-            <p><b>Last Name:</b> Doe</p>
-            <p><b>Email:</b> abc@gmail.com</p>
-            <p><b>Department:</b> Sales</p>
-            <div>
-                <button>Update</button>
-                <button>Delete</button>
-            </div>
-        </div>
-        <div>
-            <p><b> ID:</b> 1</p>
-            <p><b>First Name:</b> John</p>
-            <p><b>Last Name:</b> Doe</p>
-            <p><b>Email:</b> abc@gmail.com</p>
-            <p><b>Department:</b> Sales</p>
-            <div>
-                <button>Update</button>
-                <button>Delete</button>
+                <p><b> ID:</b> 1</p>
+                <p><b>First Name:</b> John</p>
+                <p><b>Last Name:</b> Doe</p>
+                <p><b>Email:</b> abc@gmail.com</p>
+                <p><b>Department:</b> Sales</p>
+                <div>
+                    <button class="update-btn">Update</button>
+                    <button class="delete-btn">Delete</button>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="popup">
-        <div class="add-user">
-            <h1>Add New User</h1>
-            <form>
-                <label for="fname">First name:</label><br>
-                <input type="text" id="fname" name="fname" required><br>
-                <label for="lname">Last name:</label><br>
-                <input type="text" id="lname" name="lname"><br>
-                <label for="email">Email: </label> <br>
-                <input type="email" name="email" id="email"> <br>
-                <label for="department">Department: </label><br>
-                <input type="text" name="department" id="department">
-                <br>
-                <input type="submit" value="Submit">
-              </form> 
+        <div class="wrapper">
+            <div class="add-user">
+                <h1>Add New User</h1>
+                <form onsubmit="addNewUser(event)">
+                    <label for="fname">First name:</label><br>
+                    <input type="text" id="fname" name="fname" value="abc" required><br>
+                    <label for="lname">Last name:</label><br>
+                    <input type="text" id="lname" name="lname"><br>
+                    <label for="email">Email: </label> <br>
+                    <input type="email" name="email" id="email"> <br>
+                    <label for="department">Department: </label><br>
+                    <input type="text" name="department" id="department"> <br>
+                    <br>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+            <div class="update-user">
+                <h1>Update User </h1>
+                <p>ID: 123</p>
+                <form onsubmit="updateUser(event)">
+                    <label for="fname">First name:</label><br>
+                    <input type="text" id="fname" name="fname" required><br>
+                    <label for="lname">Last name:</label><br>
+                    <input type="text" id="lname" name="lname"><br>
+                    <label for="email">Email: </label> <br>
+                    <input type="email" name="email" id="email"> <br>
+                    <label for="department">Department: </label><br>
+                    <input type="text" name="department" id="department"> <br>
+                    <br>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+
+            <div class="delete-user">
+                <p>Are you sure?</p>
+                <button onclick="deleteUser(2)">Yes</button>
+            </div>
         </div>
+
     </section>
 </body>
 
 </html>
+<script src="index.js"></script>
