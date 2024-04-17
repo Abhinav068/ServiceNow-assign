@@ -10,56 +10,55 @@ app.use(express.json());
 
 
 app.get('/', async (req, res) => {
-    res.send('serviceNow api');
+    res.sendFile(__dirname + '/view/index.html');
 })
 
-app.post('/users', async (req, res) => {
+app.post('/user', async (req, res) => {
     try {
         const { ID, FirstName, LastName, Department } = req.body;
-        const user = await UserModel({ ID, FirstName, LastName, Department });
+        const user = await UserModel({ FirstName, LastName, Department });
         await user.save();
-        res.send({ msg: 'User Successfully registered.' });
+        res.status(200).send({ msg: 'User Successfully registered.' });
 
     } catch (error) {
-        res.send({ msg: 'Something went wrong' });
+        res.status(500).send({ msg: 'Something went wrong' });
     }
 })
 
 app.get('/users', async (req, res) => {
     try {
         const users = await UserModel.find();
-        res.send(users);
+        res.status(200).send(users);
 
     } catch (error) {
-        res.send({ msg: 'Something went wrong' });
+        res.status(500).send({ msg: 'Something went wrong' });
 
     }
 })
-app.patch('/users/:ID', async (req, res) => {
+app.patch('/user/:ID', async (req, res) => {
     try {
         const ID = req.params.ID;
         const payload = req.body;
-        const doc = await UserModel.findOneAndUpdate({ ID }, { payload }, { new: true });
-        res.send(users);
+        const doc = await UserModel.findOneAndUpdate({ ID }, { ...payload }, { new: true });
+        res.status(200).send(doc);
 
     } catch (error) {
-        res.send({ msg: 'Something went wrong' });
+        console.log(error);
+        res.status(500).send({ msg: 'Something went wrong' });
 
     }
 })
-app.delete('/users/:ID', async (req, res) => {
+app.delete('/user/:ID', async (req, res) => {
     try {
         const ID = req.params.ID;
         const doc = await UserModel.findOneAndDelete({ ID });
-        res.send(users);
+        res.send({ doc, msg: "The document has been deleted." });
 
     } catch (error) {
-        res.send({ msg: 'Something went wrong' });
+        res.status(500).send({ msg: 'Something went wrong' });
 
     }
 })
-
-
 
 
 app.listen(port, async () => {
