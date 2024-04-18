@@ -1,4 +1,5 @@
 const express = require('express');
+const path=require('path');
 const { connection } = require('./config/db');
 const { UserModel } = require('./models/user.Model');
 const app = express();
@@ -7,13 +8,14 @@ const cors = require('cors')
 require('dotenv').config();
 
 app.use(cors())
+app.use(express.static(__dirname+ "/view"));
 const port = process.env.port;
 
 app.use(express.json());
 
 
 app.get('/', async (req, res) => {
-    res.sendFile(__dirname + '/view/index.html');
+    res.sendFile(__dirname + '/index.html');
 })
 
 app.post('/user', async (req, res) => {

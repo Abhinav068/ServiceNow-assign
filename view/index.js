@@ -1,8 +1,8 @@
 // onload fetch all users data
 // load the data into Users
 // append the html with data, and addevent listeners to open correct function
-// const url = 'http://localhost:8081';
-const url = 'https://nice-gold-python-fez.cyclic.app';
+const url = 'http://localhost:8081';
+// const url = 'https://nice-gold-python-fez.cyclic.app';
 getUsers()
 async function getUsers(){
     let response=await fetch(url+'/users');
