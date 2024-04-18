@@ -97,37 +97,42 @@
 </html>
 <script>
     // onload fetch all users data
-// load the data into Users
-// append the html with data, and addevent listeners to open correct function
-// const url = 'http://localhost:8081';
-const url = 'https://nice-gold-python-fez.cyclic.app';
-getUsers()
-async function getUsers(){
-    let response=await fetch(url+'/users');
-    let data= await response.json()
-    console.log(data);
-    appendUsers(data)
-}
-let Users = [{
-    ID: 123,
-    firstName: "Johny",
-    lastName: "Liver",
-    email: "liver@example.com",
-    department: "sales"
-},
-{
-    ID: 13,
-    firstName: "aman",
-    lastName: "Liver",
-    email: "liver@example.com",
-    department: "sales"
-},
-];
-const alluserwrapper = document.querySelector('.allusers');
-function appendUsers(Users){
+    // load the data into Users
+    // append the html with data, and addevent listeners to open correct function
+    const url = 'http://localhost:8081';
+    // const url = 'https://nice-gold-python-fez.cyclic.app';
+    getUsers()
+    async function getUsers() {
+        let response = await fetch(url + '/users');
+        let data = await response.json()
+        console.log(data);
+        appendUsers(data)
+    }
+    let Users = [{
+        ID: 123,
+        firstName: "Johny",
+        lastName: "Liver",
+        email: "liver@example.com",
+        department: "sales"
+    },
+    {
+        ID: 13,
+        firstName: "aman",
+        lastName: "Liver",
+        email: "liver@example.com",
+        department: "sales"
+    },
+    ];
+    const alluserwrapper = document.querySelector('.allusers');
+    const popup = document.getElementsByClassName('popup')[0];
+    const wrapperpopup = document.querySelector('.popup>.wrapper');
+    let updatebtn;
+    let deletebtn;
 
-    alluserwrapper.innerHTML = Users.map((el,i) => {
-        return `
+    function appendUsers(Users) {
+
+        alluserwrapper.innerHTML = Users.map((el, i) => {
+            return `
         <div>
         <p><b> ID:</b> ${el.ID}</p>
         <p><b>First Name:</b> ${el.firstName}</p>
@@ -140,29 +145,29 @@ function appendUsers(Users){
         </div>
         </div>
         `
-    }).join('')
-}
+        }).join('')
 
-let payload = {
-    firstName: "Johny",
-    lastName: "Liver",
-    email: "liver@example.com",
-    department: "sales"
-};
+        updatebtn = document.querySelectorAll('.update-btn');
+        deletebtn = document.querySelectorAll('.delete-btn');
+
+    }
+
+    let payload = {
+        firstName: "Johny",
+        lastName: "Liver",
+        email: "liver@example.com",
+        department: "sales"
+    };
 
 
-const popup = document.getElementsByClassName('popup')[0];
-const wrapperpopup = document.querySelector('.popup>.wrapper');
-const updatebtn = document.querySelectorAll('.update-btn');
-const deletebtn = document.querySelectorAll('.delete-btn');
-updatebtn.forEach(el => {
-    el.addEventListener('click', (e) => {
-        let idx = +e.target.dataset.idx;
-        console.log(idx);
-        let ID = Users[idx].ID;
-        popup.style.display = 'flex';
-        let { firstName, lastName, email, department } = Users[idx];
-        wrapperpopup.innerHTML = `
+    updatebtn.forEach(el => {
+        el.addEventListener('click', (e) => {
+            let idx = +e.target.dataset.idx;
+            console.log(idx);
+            let ID = Users[idx].ID;
+            popup.style.display = 'flex';
+            let { firstName, lastName, email, department } = Users[idx];
+            wrapperpopup.innerHTML = `
         <i class="fa-solid fa-xmark" onclick="back()"></i>
         <div class="update-user">
             <h1>Update User </h1>
@@ -181,40 +186,40 @@ updatebtn.forEach(el => {
             </form>
         </div>
         `;
-        let form = document.querySelector('.popup>.wrapper form');
-        form.addEventListener('submit', updateUser)
-    })
+            let form = document.querySelector('.popup>.wrapper form');
+            form.addEventListener('submit', updateUser)
+        })
 
-})
-deletebtn.forEach(el => {
-    el.addEventListener('click', (e) => {
-        let idx = +e.target.dataset.idx;
-        let ID = Users[idx].ID;
-        popup.style.display = 'flex';
-        wrapperpopup.innerHTML = `
+    })
+    deletebtn.forEach(el => {
+        el.addEventListener('click', (e) => {
+            let idx = +e.target.dataset.idx;
+            let ID = Users[idx].ID;
+            popup.style.display = 'flex';
+            wrapperpopup.innerHTML = `
         <i class="fa-solid fa-xmark" onclick="back()"></i>
         <div class="delete-user" >
             <p>Are you sure?</p>
             <button data-id="${ID}">Yes</button>
         </div>
         `;
-        document.querySelector('.popup>.wrapper .delete-user> button').addEventListener('click', deleteUser);
+            document.querySelector('.popup>.wrapper .delete-user> button').addEventListener('click', deleteUser);
 
+        })
     })
-})
 
 
 
 
 
 
-function newUser() {
-    // make the display block of .popup
-    // append new user form in wrapper
-    // call addNewUser()
-    popup.style.display = 'flex';
-    console.log(wrapperpopup);
-    wrapperpopup.innerHTML = `
+    function newUser() {
+        // make the display block of .popup
+        // append new user form in wrapper
+        // call addNewUser()
+        popup.style.display = 'flex';
+        console.log(wrapperpopup);
+        wrapperpopup.innerHTML = `
     <i class="fa-solid fa-xmark" onclick="back()"></i>
     <div class="add-user">
         <h1>Add New User</h1>
@@ -233,58 +238,58 @@ function newUser() {
     </div>
     `;
 
-}
-
-async function addNewUser(e) {
-    e.preventDefault();
-    payload = {
-        firstName: e.target.fname.value,
-        lastName: e.target.lname.value,
-        email: e.target.email.value,
-        department: e.target.department.value
-    };
-    console.log('user added', payload);
-    let response= await fetch(url+'/user',{
-        method:"POST",
-        headers:{"content-type":"application/json"},
-        body:JSON.stringify(payload)
-    })
-    if(response.ok){
-        alert('User has successfully registered.')
     }
-    // get data into payload.
-    // make api call with payload
-    // after confirmation pop up make the popup display none.
-}
 
-
-
-function deleteUser(event) {
-    console.log(event.target.dataset.id);
-    console.log('deleted');
-    alert('user deleted')
-}
-
-function updateUser(event) {
-    event.preventDefault();
-    console.log(event.target.dataset.id);
-    // console.log(event.target);
-    let form = document.querySelector('.popup>.wrapper form');
-    payload = {
-        firstName: form.fname.value,
-        lastName: form.lname.value,
-        email: form.email.value,
-        department: form.department.value,
+    async function addNewUser(e) {
+        e.preventDefault();
+        payload = {
+            firstName: e.target.fname.value,
+            lastName: e.target.lname.value,
+            email: e.target.email.value,
+            department: e.target.department.value
+        };
+        console.log('user added', payload);
+        let response = await fetch(url + '/user', {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(payload)
+        })
+        if (response.ok) {
+            alert('User has successfully registered.')
+        }
+        // get data into payload.
+        // make api call with payload
+        // after confirmation pop up make the popup display none.
     }
-    console.log(payload);
-    alert('user updated');
-}
 
-function back() {
-    const popup = document.getElementsByClassName('popup')[0];
-    // console.log(popup);
-    popup.style.display = 'none';
 
-}
+
+    function deleteUser(event) {
+        console.log(event.target.dataset.id);
+        console.log('deleted');
+        alert('user deleted')
+    }
+
+    function updateUser(event) {
+        event.preventDefault();
+        console.log(event.target.dataset.id);
+        // console.log(event.target);
+        let form = document.querySelector('.popup>.wrapper form');
+        payload = {
+            firstName: form.fname.value,
+            lastName: form.lname.value,
+            email: form.email.value,
+            department: form.department.value,
+        }
+        console.log(payload);
+        alert('user updated');
+    }
+
+    function back() {
+        const popup = document.getElementsByClassName('popup')[0];
+        // console.log(popup);
+        popup.style.display = 'none';
+
+    }
 </script>
 <!-- <script src="/view/index.js"></script> -->
