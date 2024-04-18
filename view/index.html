@@ -35,7 +35,7 @@
     <hr>
     <section>
         <h2>All Users</h2>
-        <div class="wrapper">
+        <div class="wrapper allusers">
             <div>
                 <p><b> ID:</b> 1</p>
                 <p><b>First Name:</b> John</p>
@@ -43,8 +43,8 @@
                 <p><b>Email:</b> abc@gmail.com</p>
                 <p><b>Department:</b> Sales</p>
                 <div>
-                    <button class="update-btn">Update</button>
-                    <button class="delete-btn">Delete</button>
+                    <button class="update-btn" data-idx="0">Update</button>
+                    <button class="delete-btn" data-idx="0">Delete</button>
                 </div>
             </div>
         </div>
@@ -62,7 +62,7 @@
                     <input type="text" id="lname" name="lname"><br>
                     <label for="email">Email: </label> <br>
                     <input type="email" name="email" id="email"> <br>
-                    <label for="department">Department: </label><br>
+                    <label for="department">Department: </label> <br>
                     <input type="text" name="department" id="department"> <br>
                     <br>
                     <input type="submit" value="Submit">
@@ -73,7 +73,7 @@
                 <p>ID: 123</p>
                 <form data-name="999">
                     <label for="fname">First name:</label><br>
-                    <input type="text" id="fname" name="fname" required><br>
+                    <input type="text" id="fname" name="fname" required value=""><br>
                     <label for="lname">Last name:</label><br>
                     <input type="text" id="lname" name="lname"><br>
                     <label for="email">Email: </label> <br>
@@ -87,7 +87,7 @@
 
             <div class="delete-user">
                 <p>Are you sure?</p>
-                <button onclick="deleteUser(2)">Yes</button>
+                <button>Yes</button>
             </div>
         </div>
 
