@@ -1,6 +1,15 @@
 // onload fetch all users data
 // load the data into Users
 // append the html with data, and addevent listeners to open correct function
+// const url = 'http://localhost:8081';
+const url = 'https://nice-gold-python-fez.cyclic.app';
+getUsers()
+async function getUsers(){
+    let response=await fetch(url+'/users');
+    let data= await response.json()
+    console.log(data);
+    appendUsers(data)
+}
 let Users = [{
     ID: 123,
     firstName: "Johny",
@@ -17,21 +26,25 @@ let Users = [{
 },
 ];
 const alluserwrapper = document.querySelector('.allusers');
-alluserwrapper.innerHTML = Users.map((el,i) => {
-    return `
-    <div>
-                <p><b> ID:</b> ${el.ID}</p>
-                <p><b>First Name:</b> ${el.firstName}</p>
-                <p><b>Last Name:</b> ${el.lastName}</p>
-                <p><b>Email:</b> ${el.email}</p>
-                <p><b>Department:</b> ${el.department}</p>
-                <div>
-                    <button class="update-btn" data-idx="${i}">Update</button>
-                    <button class="delete-btn" data-idx="${i}">Delete</button>
-                </div>
-            </div>
-    `
-}).join('')
+function appendUsers(Users){
+
+    alluserwrapper.innerHTML = Users.map((el,i) => {
+        return `
+        <div>
+        <p><b> ID:</b> ${el.ID}</p>
+        <p><b>First Name:</b> ${el.firstName}</p>
+        <p><b>Last Name:</b> ${el.lastName}</p>
+        <p><b>Email:</b> ${el.email}</p>
+        <p><b>Department:</b> ${el.department}</p>
+        <div>
+        <button class="update-btn" data-idx="${i}">Update</button>
+        <button class="delete-btn" data-idx="${i}">Delete</button>
+        </div>
+        </div>
+        `
+    }).join('')
+}
+
 let payload = {
     firstName: "Johny",
     lastName: "Liver",
@@ -94,8 +107,7 @@ deletebtn.forEach(el => {
 
 
 
-const url = 'http://localhost:8081';
-// const url = 'https://nice-gold-python-fez.cyclic.app';
+
 
 
 function newUser() {
@@ -125,7 +137,7 @@ function newUser() {
 
 }
 
-function addNewUser(e) {
+async function addNewUser(e) {
     e.preventDefault();
     payload = {
         firstName: e.target.fname.value,
@@ -134,6 +146,14 @@ function addNewUser(e) {
         department: e.target.department.value
     };
     console.log('user added', payload);
+    let response= await fetch(url+'/user',{
+        method:"POST",
+        headers:{"content-type":"application/json"},
+        body:JSON.stringify(payload)
+    })
+    if(response.ok){
+        alert('User has successfully registered.')
+    }
     // get data into payload.
     // make api call with payload
     // after confirmation pop up make the popup display none.

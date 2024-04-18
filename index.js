@@ -2,8 +2,11 @@ const express = require('express');
 const { connection } = require('./config/db');
 const { UserModel } = require('./models/user.Model');
 const app = express();
+const cors = require('cors')
+ 
 require('dotenv').config();
 
+app.use(cors())
 const port = process.env.port;
 
 app.use(express.json());
@@ -15,12 +18,13 @@ app.get('/', async (req, res) => {
 
 app.post('/user', async (req, res) => {
     try {
-        const { firstName, lastName, department } = req.body;
-        const user = await UserModel({ firstName, lastName, department });
+        const { firstName, lastName, department,email } = req.body;
+        const user = await UserModel({ firstName, lastName, department,email });
         await user.save();
         res.status(200).send({ msg: 'User Successfully registered.' });
 
     } catch (error) {
+        console.log(error);
         res.status(500).send({ msg: 'Something went wrong' });
     }
 })
