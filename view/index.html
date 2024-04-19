@@ -232,7 +232,6 @@
     }
 
     async function addNewUser(e) {
-        e.preventDefault();
         payload = {
             firstName: e.target.fname.value,
             lastName: e.target.lname.value,
@@ -255,7 +254,6 @@
     async function deleteUser(event) {
         let id = event.target.dataset.id;
         let form = document.querySelector('.popup>.wrapper form');
-        console.log(payload);
         let response = await fetch(url + '/user/' + id, {
             method: "Delete",
             headers: { "content-type": "application/json" },
@@ -269,7 +267,6 @@
     }
 
     async function updateUser(event) {
-        event.preventDefault();
         let id = event.target.dataset.id;
         let form = document.querySelector('.popup>.wrapper form');
         payload = {
@@ -278,7 +275,6 @@
             email: form.email.value,
             department: form.department.value,
         }
-        console.log(payload);
         let response = await fetch(url + '/user/' + id, {
             method: "PATCH",
             headers: { "content-type": "application/json" },
